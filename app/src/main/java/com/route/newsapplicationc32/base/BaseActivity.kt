@@ -5,19 +5,29 @@ import android.app.ProgressDialog
 import android.content.DialogInterface
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.ViewModel
 
 
 /**
  * Created by Mohamed Nabil Mohamed on 6/10/2020.
  * m.nabil.fci2015@gmail.com
  */
-open class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity<VM : ViewModel, DB : ViewDataBinding> : AppCompatActivity() {
 
-    lateinit var activity: BaseActivity
+    lateinit var activity: BaseActivity<VM, DB>
+    lateinit var dataBinding: DB
+    lateinit var viewModel: VM
+
+    abstract fun getLayoutId(): Int
+    abstract fun initViewModel(): VM
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activity = this
+        dataBinding = DataBindingUtil.setContentView(this, getLayoutId())
+        viewModel = initViewModel()
     }
 
     fun showMessage(
