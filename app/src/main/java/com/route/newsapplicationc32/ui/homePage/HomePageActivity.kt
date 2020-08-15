@@ -41,7 +41,6 @@ class HomePageActivity : BaseActivity<HomePageViewModel, ActivityHomePageBinding
         viewModel.newsListLiveData.observe(this, Observer {
             adapter.changeData(it ?: listOf())
         })
-
     }
 
     private fun showSourcesInTabLayout(sources: List<SourcesItem?>?) {
